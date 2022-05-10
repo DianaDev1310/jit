@@ -19,7 +19,11 @@ fn print_prompt() {
 fn start_jit_prompt() {
     loop {
         print_prompt();
+
         let cmd = get_input();
         println!("{}", cmd);
+
+        let vec: Vec<&str> = cmd.split_whitespace().collect();
+        println!("{:?}", vec);
     }
 }
