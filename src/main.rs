@@ -2,11 +2,7 @@ use std::io;
 use std::io::Write;
 
 fn main() {
-    print_prompt();
-
-    let ans = get_input();
-
-    println!("{}", ans);
+    start_jit_prompt();
 }
 
 fn get_input() -> String {
@@ -18,4 +14,12 @@ fn get_input() -> String {
 fn print_prompt() {
     print!("jit$ ");
     std::io::stdout().flush().unwrap();
+}
+
+fn start_jit_prompt() {
+    loop {
+        print_prompt();
+        let cmd = get_input();
+        println!("{}", cmd);
+    }
 }
