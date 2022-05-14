@@ -30,14 +30,10 @@ fn exec_command(cmd: Vec<&str>) {
     let cmd_type = parse_command();
 
     if cmd_type == "echo" {
-        for i in 1..=cmd.len() - 1 {
-            print!("{}", cmd[i]);
-            if i < cmd.len() - 1 {
-                print!(" ");
-                std::io::stdout().flush().unwrap();
-            }
-        }
-        println!();
+        let command = EchoCommand {
+            command: cmd.iter().map(|&s| s.into()).collect(),
+        };
+        command.execute();
     }
 }
 
@@ -45,4 +41,34 @@ fn parse_command() -> String {
     let mut cmd_type = String::new();
     cmd_type = String::from("echo");
     return cmd_type;
+}
+
+// ----- Command Interface ----- //
+pub trait Command {
+    fn execute(&self) -> String;
+}
+
+struct EchoCommand {
+    pub command: Vec<String>,
+}
+
+impl EchoCommand {
+    pub fn new(cmd: Vec<String>) -> Self {
+        EchoCommand { command: cmd }
+    }
+}
+
+impl Command for EchoCommand {
+    fn execute(&self) -> String {
+        for i in 1..=self.command.len() - 1 {
+            print!("{}", self.command[i]);
+            if i < self.command.len() - 1 {
+                print!(" ");
+                std::io::stdout().flush().unwrap();
+            }
+        }
+        println!();
+
+        return String::from("echo");
+    }
 }
