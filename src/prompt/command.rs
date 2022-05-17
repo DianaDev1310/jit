@@ -1,4 +1,4 @@
-use std::io::Write;
+use std::io::{self, Write};
 
 pub trait Command {
     fn execute(&self) -> String;
@@ -27,6 +27,10 @@ impl Command for EchoCommand {
 
         return String::from("echo");
     }
+}
+
+fn output_string<W: Write>(w: &mut W, string: &str) -> io::Result<()> {
+    writeln!(w, "{}", string)
 }
 
 #[cfg(test)]
