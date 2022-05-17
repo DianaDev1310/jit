@@ -28,3 +28,16 @@ impl Command for EchoCommand {
         return String::from("echo");
     }
 }
+
+#[cfg(test)]
+mod tests {
+    use crate::prompt::command::Command;
+    use crate::prompt::command::EchoCommand;
+    #[test]
+    fn echo_works() {
+        let cmd = EchoCommand {
+            command: ["echo", "hoge"].iter().map(|&s| s.into()).collect(),
+        };
+        cmd.execute();
+    }
+}

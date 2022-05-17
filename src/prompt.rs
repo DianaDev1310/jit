@@ -29,7 +29,7 @@ fn print_prompt() {
 }
 
 fn exec_command(cmd: Vec<&str>) {
-    let cmd_type = parse_command();
+    let cmd_type = cmd[0];
 
     if cmd_type == "echo" {
         let command = command::EchoCommand {
@@ -37,10 +37,4 @@ fn exec_command(cmd: Vec<&str>) {
         };
         command.execute();
     }
-}
-
-fn parse_command() -> String {
-    let mut cmd_type = String::new();
-    cmd_type = String::from("echo");
-    return cmd_type;
 }
